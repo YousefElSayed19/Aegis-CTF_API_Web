@@ -1,0 +1,2 @@
+After run  : npm start in dir 
+just write node validate.js in same dir in cmd to check ctf all is good or not <3
