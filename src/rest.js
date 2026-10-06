@@ -5,6 +5,16 @@ const challengeState = require('./state');
 
 const router = express.Router();
 
+function requireAuth(req, res, next) {
+  const token = auth.extractBearer(req);
+  if (!token) return res.status(401).json({ error: 'missing bearer token' });
+  try {
+    req.user = auth.verifyStrict(token);
+    next();
+  } catch (e) {
+    return res.status(401).json({ error: 'invalid or expired token' });
+  }
+}
 
 // POST /api/login
 router.post('/login', (req, res) => {
